@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Circle
 } from "lucide-react";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardStats | null>(null);
@@ -58,7 +59,7 @@ export default function DashboardPage() {
               <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
                 <LayoutDashboard className="text-blue-500" size={24} />
               </div>
-              <h1 className="text-3xl font-black tracking-tight italic uppercase">Command_Center</h1>
+              <h1 className="text-3xl font-black tracking-tight italic uppercase">TradaHub</h1>
             </div>
             <p className="text-gray-500 text-xs font-mono tracking-[0.2em] uppercase opacity-70">Node: 0x82...f92 // System: Online</p>
           </motion.div>
@@ -93,24 +94,25 @@ export default function DashboardPage() {
               <span className="text-[10px] font-mono text-gray-600 uppercase tracking-widest italic">Live_Streaming</span>
             </div>
 
-            <div className="space-y-4">
+
+            <div className="flex flex-col gap-4">
               {data.newInfos.length === 0 ? (
                 <div className="p-16 border border-dashed border-white/5 rounded-[2.5rem] text-center">
                    <p className="text-gray-700 font-mono text-[10px] uppercase tracking-[0.3em]">Buffer_Empty // No Intel Logged</p>
                 </div>
               ) : (
                 data.newInfos.map((info, idx) => (
-                  <motion.div 
-                    key={info.id} 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 + (idx * 0.1) }}
+                  <Link href={`/information/${info.id}`} key={info.id} >
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 + (idx * 0.1) }}
                     className="group relative p-6 bg-[#121214] border border-white/10 rounded-[2.2rem] hover:bg-white/[0.02] hover:border-blue-500/30 transition-all cursor-pointer shadow-xl"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-[9px] font-mono text-blue-500/60 font-black">REF::{info.id}</span>
+                          <span className="text-[9px] font-mono text-blue-500/60 font-black">REF::{info.sender || "System"}</span>
                           <h3 className="font-bold text-white tracking-tight">{info.title}</h3>
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 italic font-light opacity-80 group-hover:opacity-100 transition-opacity">"{info.body}"</p>
@@ -118,6 +120,7 @@ export default function DashboardPage() {
                       <ChevronRight size={18} className="text-gray-800 group-hover:text-blue-500 group-hover:translate-x-1 transition-all flex-shrink-0" />
                     </div>
                   </motion.div>
+                </Link>
                 ))
               )}
             </div>

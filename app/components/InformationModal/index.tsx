@@ -113,7 +113,7 @@ export default function InformationModal({
                     />
                     <div className="absolute bottom-3 right-4">
                        <span className="text-[9px] font-mono text-gray-600 uppercase tracking-tighter">
-                         Chars: {form.body}
+                         Chars: {form.body.slice(0, 10)}
                        </span>
                     </div>
                   </div>
